@@ -50,7 +50,7 @@ static Block blocks[] = {
         { PATH("r/volume"),               NULL,                           1,              2},
         { PATH("r/wifi"),                 NULL,                           2,              2},
         { PATH("r/cpuload"),              NULL,                           2,              2},
-        { PATH("r/battery"),              NULL,                           5,              2},
+        { PATH("r/battery"),              NULL,                           1,              2},
         { PATH("r/time"),                 NULL,                           5,              2},
         { NULL } /* just to mark the end of the array */
 };
