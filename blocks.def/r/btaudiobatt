@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Prints out the first bluetooth audio device battery level
+
+PREFIX='󰂰'
+
+get_bt_batt()
+{
+    batt=$(pactl list cards | grep bluetooth.battery | cut -d = -f 2 | cut -d '"' -f 2)
+    [[ "${batt}" ]] && echo "$PREFIX${batt}"
+}
+
+get_bt_batt
