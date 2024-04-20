@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Prints out the network usage
+
+INTERVAL="1"
+PREFIX_UL='󰛶'
+PREFIX_DL='󰛴'
+PREFIX_UD='󰛳'
+PREFIX_N='󰲝'
+UNITS="bkMG"
+
+get_network_usage()
+{
+  ifs=$(ls -ld /sys/class/net/* | grep -v virtual | cut -d ' ' -f 10 | rev | cut -d '/' -f 1 | rev)
+  T=0
+  R=0
+  iT=0
+  iR=0
+
+  for i in ${ifs};
+  do
+    R1=`cat /sys/class/net/${i}/statistics/rx_bytes`
+    T1=`cat /sys/class/net/${i}/statistics/tx_bytes`
+    sleep ${INTERVAL}
+    R2=`cat /sys/class/net/${i}/statistics/rx_bytes`
+    T2=`cat /sys/class/net/${i}/statistics/tx_bytes`
+    T=$((${T} + (${T2} - ${T1})))
+    R=$((${R} + (${R2} - ${R1})))
+  done;
+
+  PREFIX="${PREFIX_N}"
+  
+  if [ ${T} -gt 0 ];
+  then
+    PREFIX="${PREFIX_UL}"
+  fi
+
+  if [ ${R} -gt ${T} ];
+  then
+    PREFIX="${PREFIX_DL}"
+  fi
+
+  while [ ${T} -ge 1024 ];
+  do
+    T=$((${T} / 1024))
+    iT=$((${iT} + 1))
+  done
+
+  while [ ${R} -ge 1024 ];
+  do
+    R=$((${R} / 1024))
+    iR=$((${iR} + 1))
+  done
+
+  echo "${PREFIX} ${T}${UNITS:iT:1}/${R}${UNITS:iR:1}"
+}
+
+get_network_usage
