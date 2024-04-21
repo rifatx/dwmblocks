@@ -12,24 +12,32 @@ UNITS="bkMG"
 get_network_usage()
 {
   ifs=$(ls -ld /sys/class/net/* | grep -v virtual | cut -d ' ' -f 10 | rev | cut -d '/' -f 1 | rev)
-  T=0
-  R=0
+  T1=0
+  R1=0
+  T2=0
+  R2=0
   iT=0
   iR=0
 
   for i in ${ifs};
   do
-    R1=`cat /sys/class/net/${i}/statistics/rx_bytes`
-    T1=`cat /sys/class/net/${i}/statistics/tx_bytes`
-    sleep ${INTERVAL}
-    R2=`cat /sys/class/net/${i}/statistics/rx_bytes`
-    T2=`cat /sys/class/net/${i}/statistics/tx_bytes`
-    T=$((${T} + (${T2} - ${T1})))
-    R=$((${R} + (${R2} - ${R1})))
+    R1=$((${R1} + $(cat /sys/class/net/${i}/statistics/rx_bytes)))
+    T1=$((${T1} + $(cat /sys/class/net/${i}/statistics/tx_bytes)))
   done;
 
+  sleep ${INTERVAL}
+
+  for i in ${ifs};
+  do
+    R2=$((${R2} + $(cat /sys/class/net/${i}/statistics/rx_bytes)))
+    T2=$((${T2} + $(cat /sys/class/net/${i}/statistics/tx_bytes)))
+  done;
+
+  T=$((${T2} - ${T1}))
+  R=$((${R2} - ${R1}))
+
   PREFIX="${PREFIX_N}"
-  
+
   if [ ${T} -gt 0 ];
   then
     PREFIX="${PREFIX_UL}"
