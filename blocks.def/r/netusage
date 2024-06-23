@@ -11,7 +11,7 @@ UNITS="bkMG"
 
 get_network_usage()
 {
-  ifs=$(ls -ld /sys/class/net/* | grep -v virtual | cut -d ' ' -f 10 | rev | cut -d '/' -f 1 | rev)
+  ifs=$(ls -ld /sys/class/net/* | grep -v virtual | cut -d '-' -f 1 | rev | cut -d '/' -f 1 | rev)
   T1=0
   R1=0
   T2=0
