@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Gets tor status
+
+TOR_ICON='󰌋'
+
+get_tor_status()
+{
+        if tor-ctrl GETINFO status/circuit-established 2>&1 | grep -q '250-status/circuit-established=1'; then
+                # Tor circuit established
+                echo -n "${TOR_ICON}"
+        fi
+}
+
+get_tor_status
