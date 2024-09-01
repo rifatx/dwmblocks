@@ -2,7 +2,7 @@
 
 # Gets tor status
 
-TOR_ICON='󰌋'
+TOR_ICON='󰰦'
 
 get_tor_status()
 {

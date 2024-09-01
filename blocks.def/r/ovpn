@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Gets ovpn & http proxy status
+
+OVPN_ICON='󰯅'
+
+get_ovpn_status()
+{
+  ovpn_status=$(systemctl status openvpn-client@oci-vpn-client | grep 'active (running')
+  proxy_status=$(systemctl status tinyproxy | grep 'active (running')
+
+  if [[ ! -z "${ovpn_status}" && ! -z "${proxy_status}" ]]; then
+    # OpenVPN up & proxy running
+    echo -n "${OVPN_ICON}"
+  fi
+}
+
+get_ovpn_status

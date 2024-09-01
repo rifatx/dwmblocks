@@ -50,6 +50,7 @@ static Block blocks[] = {
         { PATH("r/netusage"),             NULL,                           4,              2},
         { PATH("r/btaudiobatt"),          NULL,                           30,             2},
         { PATH("r/volume"),               NULL,                           1,              2},
+        { PATH("r/ovpn"),                 NULL,                           5,              2},
         { PATH("r/tor"),                  NULL,                           5,              2},
         { PATH("r/wifi"),                 NULL,                           5,              2},
         { PATH("r/cpuload"),              NULL,                           2,              2},
