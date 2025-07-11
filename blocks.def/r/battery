@@ -37,7 +37,7 @@ get_battery()
       COLOR=$COLOR_RESET
 		elif [[ $capacity -le 10 ]]; then
       BAT_ICON="$BATTERY_4_ICON"
-      if (( $(date +%s) % 2 == 0 )); then
+      if (( $1 == 0 )); then
         WCOLOR="\x0d"
         COLOR="\x0d"
       else
@@ -61,4 +61,4 @@ get_battery()
 	echo -e "$WCOLOR$ICON$BAT_ICON $COLOR$capacity%$COLOR_RESET"
 }
 
-get_battery
+get_battery $1

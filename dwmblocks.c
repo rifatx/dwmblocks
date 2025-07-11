@@ -175,6 +175,7 @@ updateblock(Block *block, int sigval)
                 cleanup();
                 exit(1);
         }
+        int par = block->vf ? (block->vf)() : 0;
         switch (fork()) {
                 case -1:
                         perror("updateblock - fork");
@@ -193,14 +194,16 @@ updateblock(Block *block, int sigval)
                                 close(fd[1]);
                         }
                         if (sigval == NILL) {
-                                char *arg[] = { block->pathu, NULL };
+                                char buf[12];
+                                char *arg[] = { block->pathu, buf, NULL };
+                                snprintf(buf, sizeof buf, "%d", par);
 
                                 execv(arg[0], arg);
                         } else {
-                                char buf[12];
+                                char buf[16];
                                 char *arg[] = { block->pathu, buf, NULL };
 
-                                snprintf(buf, sizeof buf, "%d", sigval);
+                                snprintf(buf, sizeof buf, "%d %d", sigval, par);
                                 execv(arg[0], arg);
                         }
                         perror("updateblock - child - execv");

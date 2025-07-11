@@ -41,20 +41,26 @@ static const char delimiter[] = { ' ', DELIMITERENDCHAR };
 #define INTERVALs                       1
 #define INTERVALn                       0
 
+static int c = 0;
+static int next_cycle()
+{
+  return c=(c+1)%2;
+}
+
 static Block blocks[] = {
-/*      pathu                           pathc                           interval        signal */
+/*      pathu                           pathc                           interval        signal   param generator*/
 //        { PATH("calendar.sh"),          NULL,                           30,             1},
 //        { PATH("volume.sh"),            PATH("volume_button.sh"),       0,              2},
 //        { PATH("cpu_temp.sh"),          PATH("cpu_temp_button.sh"),     1,              4},
 //        { PATH("battery.sh"),           PATH("battery_button.sh"),      30,             3},
-        { PATH("r/netusage"),             NULL,                           4,              2},
-        { PATH("r/btaudiobatt"),          NULL,                           30,             2},
-        { PATH("r/volume"),               NULL,                           1,              2},
-        { PATH("r/ovpn"),                 NULL,                           5,              2},
-        { PATH("r/tor"),                  NULL,                           5,              2},
-        { PATH("r/wifi"),                 NULL,                           5,              2},
-        { PATH("r/cpuload"),              NULL,                           2,              2},
-        { PATH("r/battery"),              NULL,                           1,              2},
-        { PATH("r/time"),                 NULL,                           5,              2},
+        { PATH("r/netusage"),             NULL,                           4,              2,     NULL },
+        { PATH("r/btaudiobatt"),          NULL,                           30,             2,     NULL },
+        { PATH("r/volume"),               NULL,                           1,              2,     NULL },
+        { PATH("r/ovpn"),                 NULL,                           5,              2,     NULL },
+        { PATH("r/tor"),                  NULL,                           5,              2,     NULL },
+        { PATH("r/wifi"),                 NULL,                           5,              2,     NULL },
+        { PATH("r/cpuload"),              NULL,                           2,              2,     NULL },
+        { PATH("r/battery"),              NULL,                           1,              2,     next_cycle },
+        { PATH("r/time"),                 NULL,                           5,              2,     NULL },
         { NULL } /* just to mark the end of the array */
 };
