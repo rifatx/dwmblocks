@@ -58,6 +58,7 @@ static Block blocks[] = {
         { PATH("r/volume"),               NULL,                           1,              2,     NULL },
         { PATH("r/ovpn"),                 NULL,                           5,              2,     NULL },
         { PATH("r/tor"),                  NULL,                           5,              2,     NULL },
+        { PATH("r/wired"),                NULL,                           5,              2,     NULL },
         { PATH("r/wifi"),                 NULL,                           5,              2,     NULL },
         { PATH("r/cpuload"),              NULL,                           2,              2,     NULL },
         { PATH("r/battery"),              NULL,                           1,              2,     next_cycle },

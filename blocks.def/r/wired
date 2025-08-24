@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Gets the wifi status
+
+WIRED_IF="/sys/class/net/enp1s0/carrier"
+
+WIRED_ICON='󰛳'
+
+get_wired()
+{
+  if grep -q "1" ${WIRED_IF}; then
+    echo -n "${WIRED_ICON}"
+  fi
+}
+
+get_wired
