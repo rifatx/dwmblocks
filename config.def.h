@@ -55,7 +55,7 @@ static Block blocks[] = {
 //        { PATH("battery.sh"),           PATH("battery_button.sh"),      30,             3},
         { PATH("r/netusage"),             NULL,                           4,              2,     NULL },
         { PATH("r/btaudiobatt"),          NULL,                           30,             2,     NULL },
-        { PATH("r/volume"),               NULL,                           1,              2,     NULL },
+        { PATH("r/volume"),               PATH("r/set-sound-output-device"),                           1,              2,     NULL },
         { PATH("r/ovpn"),                 NULL,                           5,              2,     NULL },
         { PATH("r/tor"),                  NULL,                           5,              2,     NULL },
         { PATH("r/wired"),                NULL,                           5,              2,     NULL },

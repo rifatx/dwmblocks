@@ -1,0 +1,21 @@
+#!/bin/bash
+
+devices=""
+
+while IFS= read -r line; do
+  read -a parts <<< "${line}"
+ 
+  device_no=${parts[0]}
+  device_name="${parts[1]##*.}"
+  device_stat=${parts[6]}
+ 
+#  echo "${device_no} ${device_name} ${device_stat}"
+  devices+="${device_no} ${device_name} ${device_stat}\n"
+done <<< "$(pactl list sinks short)"
+
+device=$(echo -e "${devices%\\n}" | dmenu)
+
+read -a parts <<< "${device}"
+
+pactl set-default-sink "${parts[0]}"
+
