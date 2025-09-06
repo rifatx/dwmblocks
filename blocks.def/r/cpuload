@@ -3,6 +3,8 @@
 # Prints out the CPU load percentage
 
 PREFIX=''
+MI_START=40
+HI_START=80
 
 get_load()
 {
@@ -28,7 +30,16 @@ get_load()
 
   cpu_usage=$(printf %02d ${cpu_usage})
 
-  echo "$PREFIX $cpu_usage%"
+  COLOR_RESET="\x0b"
+  COLOR="\x0b"
+
+		if [[ $cpu_usage -ge $HI_START ]]; then
+      COLOR="\x0f"
+		elif [[ $cpu_usage -ge $MI_START ]]; then
+      COLOR="\x0e"
+    fi
+
+  echo -e "$COLOR$PREFIX $cpu_usage%$COLOR_RESET"
 }
 
 get_load
