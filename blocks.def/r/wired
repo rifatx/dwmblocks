@@ -1,19 +1,20 @@
 #!/bin/bash
 
 # Gets the wifi status
-# TODO: enumerate all wired interfaces
-WIRED_IF1="enp1s0"
-WIRED_IF2="enp0s20f0u4u2c2"
-WIRED_IF1_PATH="/sys/class/net/${WIRED_IF1}/carrier"
-WIRED_IF2_PATH="/sys/class/net/${WIRED_IF2}/carrier"
+WIRED_IF_PREFIX="enp"
+WIRED_IF_PATH_PREFIX="/sys/class/net"
+WIRED_IF_PATH_SUFFIX="carrier"
 
 WIRED_ICON='󰛳'
 
 get_wired()
 {
-  if grep -q "1" ${WIRED_IF1_PATH} || grep -q "1" ${WIRED_IF2_PATH} ; then
-    echo -n "${WIRED_ICON}"
-  fi
+  while IFS= read -r i; do
+    if grep -q "1" $i ; then
+      echo -n "${WIRED_ICON}"
+      return
+    fi
+  done <<< $(ls -1 ${WIRED_IF_PATH_PREFIX}/${WIRED_IF_PREFIX}*/${WIRED_IF_PATH_SUFFIX})
 }
 
 get_wired
